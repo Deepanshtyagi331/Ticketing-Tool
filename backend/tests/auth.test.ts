@@ -43,7 +43,7 @@ describe('Authentication API Suite', () => {
       expect(res.body.data.refreshToken).toBeDefined();
 
       // Ensure httpOnly cookie is set
-      const cookies = res.headers['set-cookie'] as string[] | undefined;
+      const cookies = res.get('Set-Cookie');
       expect(cookies).toBeDefined();
       expect(cookies?.[0]).toMatch(/refreshToken=/);
       expect(cookies?.[0]).toMatch(/HttpOnly/);
@@ -267,7 +267,7 @@ describe('Authentication API Suite', () => {
         password: testUser.password
       });
 
-      const cookies = (loginRes.headers['set-cookie'] as string[] | undefined) ?? [];
+      const cookies = loginRes.get('Set-Cookie') ?? [];
 
       const res = await request(app)
         .post('/auth/refresh')
