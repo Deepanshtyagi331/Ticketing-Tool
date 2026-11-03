@@ -1,0 +1,15 @@
+[
+  "/health",
+  "/auth/register",
+  "/auth/login",
+  "/auth/refresh",
+  "/auth/logout",
+  "/auth/me",
+  "/events",
+  "/events/{id}",
+  "/bookings",
+  "/bookings/my",
+  "/bookings/{id}",
+  "/payments/webhook",
+  "/admin/reports/revenue"
+]

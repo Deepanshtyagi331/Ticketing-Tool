@@ -1,0 +1,364 @@
+[
+  {
+    "testId": "TC-DOC-01",
+    "module": "Documentation",
+    "testScenario": "Swagger UI loads successfully at GET /api-docs/",
+    "expectedResult": "HTTP 200 with HTML containing Swagger UI bundle elements",
+    "actualResult": "Swagger UI HTML bundle returned with 200 OK",
+    "httpStatus": 200,
+    "status": "PASS"
+  },
+  {
+    "testId": "TC-DOC-02",
+    "module": "Documentation",
+    "testScenario": "OpenAPI 3.0.3 specification returned at GET /api-docs.json",
+    "expectedResult": "HTTP 200 with OpenAPI 3.0.3 JSON containing all paths and components",
+    "actualResult": "OpenAPI v3.0.3 returned with 13 registered endpoints",
+    "httpStatus": 200,
+    "status": "PASS"
+  },
+  {
+    "testId": "TC-AUTH-01",
+    "module": "Authentication",
+    "testScenario": "Valid user registration with password hashing",
+    "expectedResult": "HTTP 201 with access token and user object (no passwordHash)",
+    "actualResult": "User registered successfully, token issued",
+    "httpStatus": 201,
+    "status": "PASS"
+  },
+  {
+    "testId": "TC-AUTH-02",
+    "module": "Authentication",
+    "testScenario": "Admin user registration with role=admin",
+    "expectedResult": "HTTP 201 with admin role confirmed",
+    "actualResult": "Admin user registered with role=admin",
+    "httpStatus": 201,
+    "status": "PASS"
+  },
+  {
+    "testId": "TC-AUTH-03",
+    "module": "Authentication",
+    "testScenario": "Registration with missing name and password",
+    "expectedResult": "HTTP 400 with VALIDATION_ERROR code",
+    "actualResult": "400 returned with structured validation error",
+    "httpStatus": 400,
+    "status": "PASS"
+  },
+  {
+    "testId": "TC-AUTH-04",
+    "module": "Authentication",
+    "testScenario": "Registration with weak password (< 8 chars)",
+    "expectedResult": "HTTP 400 rejecting password length",
+    "actualResult": "Rejected with 400 VALIDATION_ERROR",
+    "httpStatus": 400,
+    "status": "PASS"
+  },
+  {
+    "testId": "TC-AUTH-05",
+    "module": "Authentication",
+    "testScenario": "Registration with duplicate email address",
+    "expectedResult": "HTTP 409 CONFLICT or 400 rejecting duplicate",
+    "actualResult": "Correctly rejected with HTTP 409 (CONFLICT)",
+    "httpStatus": 409,
+    "status": "PASS"
+  },
+  {
+    "testId": "TC-AUTH-06",
+    "module": "Authentication",
+    "testScenario": "User login with valid credentials",
+    "expectedResult": "HTTP 200 with JWT access token and HttpOnly refresh token cookie",
+    "actualResult": "Authenticated successfully, access token and refresh cookie received",
+    "httpStatus": 200,
+    "status": "PASS"
+  },
+  {
+    "testId": "TC-AUTH-07",
+    "module": "Authentication",
+    "testScenario": "User login with wrong password",
+    "expectedResult": "HTTP 401 UNAUTHORIZED / INVALID_CREDENTIALS",
+    "actualResult": "Rejected with HTTP 401 (UNAUTHORIZED)",
+    "httpStatus": 401,
+    "status": "PASS"
+  },
+  {
+    "testId": "TC-AUTH-08",
+    "module": "Authentication",
+    "testScenario": "Access protected GET /auth/me with valid Bearer token",
+    "expectedResult": "HTTP 200 with current user profile",
+    "actualResult": "User profile fetched (qa_user_mw0ipv1f@test.local)",
+    "httpStatus": 200,
+    "status": "PASS"
+  },
+  {
+    "testId": "TC-AUTH-09",
+    "module": "Authentication",
+    "testScenario": "Access protected GET /auth/me without token",
+    "expectedResult": "HTTP 401 UNAUTHORIZED",
+    "actualResult": "Rejected with HTTP 401 (UNAUTHORIZED)",
+    "httpStatus": 401,
+    "status": "PASS"
+  },
+  {
+    "testId": "TC-AUTH-10",
+    "module": "Authentication",
+    "testScenario": "Token refresh and atomic rotation via POST /auth/refresh",
+    "expectedResult": "HTTP 200 with newly issued access token and newly rotated refresh cookie",
+    "actualResult": "Token refreshed and rotated to new refresh cookie successfully",
+    "httpStatus": 200,
+    "status": "PASS"
+  },
+  {
+    "testId": "TC-AUTH-11",
+    "module": "Authentication",
+    "testScenario": "Refresh token reuse detection: old token triggers session family wipe",
+    "expectedResult": "HTTP 401 and all user sessions invalidated immediately",
+    "actualResult": "Replay detected (401 Security Violation) and entire family wiped",
+    "httpStatus": 401,
+    "status": "PASS"
+  },
+  {
+    "testId": "TC-AUTH-12",
+    "module": "Authorization",
+    "testScenario": "Regular user accessing admin-only endpoint",
+    "expectedResult": "HTTP 403 FORBIDDEN",
+    "actualResult": "Blocked with 403 FORBIDDEN",
+    "httpStatus": 403,
+    "status": "PASS"
+  },
+  {
+    "testId": "TC-AUTH-13",
+    "module": "Authorization",
+    "testScenario": "Admin user accessing admin-only endpoint",
+    "expectedResult": "HTTP 200 authorized access",
+    "actualResult": "Admin access granted with HTTP 200",
+    "httpStatus": 200,
+    "status": "PASS"
+  },
+  {
+    "testId": "TC-EVT-01",
+    "module": "Events",
+    "testScenario": "Admin creates event with availableSeats equal to totalSeats",
+    "expectedResult": "HTTP 201 with created event object and availableSeats=totalSeats",
+    "actualResult": "Event created (ID: 6ae9b0f49702a95c28bdc31b, Seats: 100/100)",
+    "httpStatus": 201,
+    "status": "PASS"
+  },
+  {
+    "testId": "TC-EVT-02",
+    "module": "Events",
+    "testScenario": "Regular user attempts to create event",
+    "expectedResult": "HTTP 403 FORBIDDEN",
+    "actualResult": "Blocked with 403 FORBIDDEN",
+    "httpStatus": 403,
+    "status": "PASS"
+  },
+  {
+    "testId": "TC-EVT-03",
+    "module": "Events",
+    "testScenario": "Admin updates event capacity expanding totalSeats and availableSeats",
+    "expectedResult": "HTTP 200 with updated capacity",
+    "actualResult": "Updated capacity to 150 seats",
+    "httpStatus": 200,
+    "status": "PASS"
+  },
+  {
+    "testId": "TC-EVT-04",
+    "module": "Events",
+    "testScenario": "Public event listing with cursor pagination metadata (no skip())",
+    "expectedResult": "HTTP 200 with event array and nextCursor pagination object",
+    "actualResult": "Page 1 returned 2 events, nextCursor=present",
+    "httpStatus": 200,
+    "status": "PASS"
+  },
+  {
+    "testId": "TC-EVT-05",
+    "module": "Events",
+    "testScenario": "Pagination stability: cursor pagination avoids duplicates across pages",
+    "expectedResult": "HTTP 200 with zero duplicate records between page 1 and page 2",
+    "actualResult": "No duplicate events between page 1 and page 2",
+    "httpStatus": 200,
+    "status": "PASS"
+  },
+  {
+    "testId": "TC-EVT-06",
+    "module": "Events",
+    "testScenario": "Filter events by date bounds (from and to)",
+    "expectedResult": "HTTP 200 with all returned events matching date interval",
+    "actualResult": "All 8 returned events fall within requested bounds",
+    "httpStatus": 200,
+    "status": "PASS"
+  },
+  {
+    "testId": "TC-EVT-07",
+    "module": "Events",
+    "testScenario": "Text search on event title via MongoDB text index",
+    "expectedResult": "HTTP 200 returning matching events",
+    "actualResult": "Matched 3 events containing 'QA Master'",
+    "httpStatus": 200,
+    "status": "PASS"
+  },
+  {
+    "testId": "TC-BKG-01",
+    "module": "Bookings",
+    "testScenario": "Atomic booking creation with 10-minute seat hold (PENDING)",
+    "expectedResult": "HTTP 201, status PENDING, expiresAt exactly 10 minutes in future",
+    "actualResult": "Booking 6ae9b0f49702a95c28bdc326 created in PENDING status, hold duration=10m",
+    "httpStatus": 201,
+    "status": "PASS"
+  },
+  {
+    "testId": "TC-BKG-02",
+    "module": "Bookings",
+    "testScenario": "Idempotency: Resending same Idempotency-Key returns original booking without holding seats twice",
+    "expectedResult": "Original booking returned, availableSeats unchanged",
+    "actualResult": "Original booking returned (ID: 6ae9b0f49702a95c28bdc326), seats unchanged (148 === 148)",
+    "httpStatus": 200,
+    "status": "PASS"
+  },
+  {
+    "testId": "TC-BKG-03",
+    "module": "Bookings",
+    "testScenario": "Booking request without required Idempotency-Key header",
+    "expectedResult": "HTTP 400 VALIDATION_ERROR",
+    "actualResult": "Rejected with 400 VALIDATION_ERROR",
+    "httpStatus": 400,
+    "status": "PASS"
+  },
+  {
+    "testId": "TC-BKG-04",
+    "module": "Bookings",
+    "testScenario": "Booking with insufficient available seats returns HTTP 409",
+    "expectedResult": "HTTP 409 CONFLICT/INSUFFICIENT_SEATS, no inventory decremented",
+    "actualResult": "Rejected with HTTP 409 (CONFLICT / Insufficient seats available)",
+    "httpStatus": 409,
+    "status": "PASS"
+  },
+  {
+    "testId": "TC-PAY-01",
+    "module": "Payments",
+    "testScenario": "Valid HMAC-SHA256 signature confirms PENDING booking",
+    "expectedResult": "HTTP 200, booking status transitions to CONFIRMED",
+    "actualResult": "Webhook accepted (status: confirmed), DB booking status=CONFIRMED",
+    "httpStatus": 200,
+    "status": "PASS"
+  },
+  {
+    "testId": "TC-PAY-02",
+    "module": "Payments",
+    "testScenario": "Invalid HMAC signature rejected with 401 UNAUTHORIZED",
+    "expectedResult": "HTTP 401 UNAUTHORIZED",
+    "actualResult": "Rejected with 401 UNAUTHORIZED (Invalid HMAC signature)",
+    "httpStatus": 401,
+    "status": "PASS"
+  },
+  {
+    "testId": "TC-PAY-03",
+    "module": "Payments",
+    "testScenario": "Webhook request without x-signature header",
+    "expectedResult": "HTTP 401 UNAUTHORIZED (Signature header missing)",
+    "actualResult": "Rejected with 401 UNAUTHORIZED",
+    "httpStatus": 401,
+    "status": "PASS"
+  },
+  {
+    "testId": "TC-PAY-04",
+    "module": "Payments",
+    "testScenario": "Tampered webhook payload rejected (HMAC raw body integrity check)",
+    "expectedResult": "HTTP 401 UNAUTHORIZED",
+    "actualResult": "Tampering detected and rejected with 401 UNAUTHORIZED",
+    "httpStatus": 401,
+    "status": "PASS"
+  },
+  {
+    "testId": "TC-PAY-05",
+    "module": "Payments",
+    "testScenario": "Duplicate webhook delivery handled idempotently without re-processing",
+    "expectedResult": "HTTP 200 with status already_confirmed",
+    "actualResult": "Duplicate handled idempotently (status: already_confirmed)",
+    "httpStatus": 200,
+    "status": "PASS"
+  },
+  {
+    "testId": "TC-PAY-06",
+    "module": "Payments",
+    "testScenario": "Late payment policy: payment on expired booking returns late_payment_refund_required and never confirms",
+    "expectedResult": "HTTP 200 with status late_payment_refund_required; booking remains EXPIRED",
+    "actualResult": "Late payment refund protocol triggered, booking remains EXPIRED",
+    "httpStatus": 200,
+    "status": "PASS"
+  },
+  {
+    "testId": "TC-EXP-01",
+    "module": "Expiry Worker",
+    "testScenario": "Atomic conditional seat release: PENDING -> EXPIRED restores held seats exactly once",
+    "expectedResult": "Booking transitions to EXPIRED, seats incremented by 2; subsequent worker runs do not double release",
+    "actualResult": "Seats released exactly once (8 -> 10). Second expiry attempt returned success=false without double releasing",
+    "httpStatus": 200,
+    "status": "PASS"
+  },
+  {
+    "testId": "TC-RAT-01",
+    "module": "Reliability",
+    "testScenario": "User-scoped rate limiting: 5 req/min allowed on POST /bookings, 6th returns 429",
+    "expectedResult": "First 5 succeed (201/409), 6th returns HTTP 429",
+    "actualResult": "Statuses: [201, 201, 201, 201, 201, 429] - 6th blocked with 429",
+    "httpStatus": 429,
+    "status": "PASS"
+  },
+  {
+    "testId": "TC-RAT-02",
+    "module": "Reliability",
+    "testScenario": "Rate limit isolation: User B is NOT blocked when User A is rate limited",
+    "expectedResult": "HTTP 201 or 409 (not 429)",
+    "actualResult": "User B was not blocked (HTTP 201)",
+    "httpStatus": 201,
+    "status": "PASS"
+  },
+  {
+    "testId": "TC-REL-01",
+    "module": "Reliability",
+    "testScenario": "Unique X-Request-Id UUID header generated and returned on all responses",
+    "expectedResult": "HTTP response contains valid UUID in X-Request-Id header",
+    "actualResult": "Received valid UUID X-Request-Id: 72244ed9-1265-46b2-bcb0-8c399f77c7ac",
+    "httpStatus": 200,
+    "status": "PASS"
+  },
+  {
+    "testId": "TC-REP-01",
+    "module": "Admin Reports",
+    "testScenario": "Admin accesses GET /admin/reports/revenue with date interval",
+    "expectedResult": "HTTP 200 with aggregated revenue and seats sold summary",
+    "actualResult": "Revenue report retrieved (Total: $480.00, Seats: undefined)",
+    "httpStatus": 200,
+    "status": "PASS"
+  },
+  {
+    "testId": "TC-REP-02",
+    "module": "Admin Reports",
+    "testScenario": "Regular user blocked from admin revenue report",
+    "expectedResult": "HTTP 403 FORBIDDEN",
+    "actualResult": "Blocked with 403 FORBIDDEN",
+    "httpStatus": 403,
+    "status": "PASS"
+  },
+  {
+    "testId": "TC-CONC-01",
+    "module": "Concurrency",
+    "testScenario": "MANDATORY: 50 parallel requests competing for 10 seats (atomic conditional decrement)",
+    "expectedResult": "Exactly 10 HTTP 201, exactly 40 HTTP 409, final availableSeats=0, no oversell",
+    "actualResult": "PERFECT: Exactly 10 succeeded (HTTP 201), 40 rejected (HTTP 409), availableSeats=0, 10 bookings created in DB",
+    "httpStatus": "201/409",
+    "status": "PASS",
+    "details": {
+      "totalRequests": 50,
+      "successfulCount": 10,
+      "insufficientSeatsCount": 40,
+      "unexpectedErrorCount": 0,
+      "initialSeats": 10,
+      "finalAvailableSeats": 0,
+      "bookingsInDatabase": 10,
+      "oversellingOccurred": false,
+      "verdict": "PASSED"
+    }
+  }
+]

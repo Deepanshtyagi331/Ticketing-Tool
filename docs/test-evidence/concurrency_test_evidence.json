@@ -1,0 +1,11 @@
+{
+  "totalRequests": 50,
+  "successfulCount": 10,
+  "insufficientSeatsCount": 40,
+  "unexpectedErrorCount": 0,
+  "initialSeats": 10,
+  "finalAvailableSeats": 0,
+  "bookingsInDatabase": 10,
+  "oversellingOccurred": false,
+  "verdict": "PASSED"
+}

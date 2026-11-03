@@ -1,0 +1,30 @@
+{
+  "success": true,
+  "data": {
+    "report": [
+      {
+        "totalRevenue": 240,
+        "confirmedBookingsCount": 1,
+        "totalSeatsSold": 2,
+        "eventId": "6ae9b0dc9702a95c28bdc115",
+        "eventTitle": "QA Master Conference mw0ipcg4 (Updated)",
+        "date": "2026-11-03"
+      },
+      {
+        "totalRevenue": 240,
+        "confirmedBookingsCount": 1,
+        "totalSeatsSold": 2,
+        "eventId": "6ae9b0f49702a95c28bdc31b",
+        "eventTitle": "QA Master Conference mw0ipv1f (Updated)",
+        "date": "2026-11-03"
+      }
+    ],
+    "summary": {
+      "totalRevenue": 480,
+      "totalBookings": 2,
+      "totalSeats": 4,
+      "from": "2026-10-27T10:01:25.029Z",
+      "to": "2026-11-04T10:01:25.029Z"
+    }
+  }
+}
