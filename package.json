@@ -1,0 +1,29 @@
+{
+  "name": "ticketing-tool",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Event Ticket Booking System - Production TypeScript Monorepo",
+  "scripts": {
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "build:backend": "npm --prefix backend run build",
+    "build:frontend": "npm --prefix frontend run build",
+    "typecheck:backend": "npm --prefix backend run typecheck",
+    "typecheck:frontend": "npm --prefix frontend run typecheck",
+    "typecheck:api": "tsc -p api-tests/tsconfig.json",
+    "typecheck": "npm run typecheck:backend && npm run typecheck:frontend && npm run typecheck:api",
+    "test:backend": "npm --prefix backend test",
+    "test": "npm run test:backend",
+    "test:api:auth": "tsx api-tests/auth.test.ts",
+    "test:api:events": "tsx api-tests/events.test.ts",
+    "test:api:bookings": "tsx api-tests/bookings.test.ts",
+    "test:api:payments": "tsx api-tests/payments.test.ts",
+    "test:api:concurrency": "tsx api-tests/concurrency.test.ts",
+    "test:api:reports": "tsx api-tests/admin-reports.test.ts",
+    "test:api": "npm run test:api:auth && npm run test:api:events && npm run test:api:bookings && npm run test:api:payments && npm run test:api:concurrency && npm run test:api:reports"
+  },
+  "workspaces": [
+    "backend",
+    "frontend"
+  ]
+}
