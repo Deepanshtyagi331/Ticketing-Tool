@@ -39,7 +39,12 @@ const envSchema = z.object({
     .transform((val) => parseInt(val, 10))
 });
 
-const parsedEnv = envSchema.safeParse(process.env);
+const rawEnv = {
+  ...process.env,
+  MONGO_URI: process.env.MONGO_URI || process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/ticket_booking'
+};
+
+const parsedEnv = envSchema.safeParse(rawEnv);
 
 if (!parsedEnv.success) {
   console.error('❌ Environment configuration validation failed:');
